@@ -27,4 +27,17 @@ dotnet run
 
 ## Version history
 
-- Initial commit: the original program as provided.
+**Initial commit** - the original program as provided in the lab.
+
+**Fix room service case sensitivity and invalid number crash** - two changes:
+
+1. Room service was compared with `roomService == "yes"`, so a customer who
+   answered "Yes" or "YES" was never charged the 10% surcharge. Now compared
+   as `roomService.Trim().ToLower() == "yes"`, which also tolerates stray
+   spaces. A 3-night stay with room service now correctly bills $330 instead
+   of $300.
+
+2. The number of nights was read with `int.Parse`, which throws a
+   `FormatException` and crashes the program if the user types anything that
+   is not a whole number. Replaced with `int.TryParse` so bad input prints a
+   message and asks again instead of terminating.
