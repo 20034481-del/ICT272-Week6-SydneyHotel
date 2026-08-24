@@ -36,7 +36,11 @@ namespace htel
 
                 while (true) {
 
-                    NumberOfnight = int.Parse(Console.ReadLine());
+                    if (!int.TryParse(Console.ReadLine(), out NumberOfnight))
+                    {
+                        Console.WriteLine("Please enter a whole number:");
+                        continue;
+                    }
                     if(NumberOfnight>=1&& NumberOfnight <= 20)
                     {
                         night[i] = NumberOfnight;
@@ -69,7 +73,7 @@ namespace htel
                     cost = NumberOfnight * 75.3;
                 }
                 //checking if the room service is included
-                if (roomService == "yes")
+                if (roomService.Trim().ToLower() == "yes")
                 {
                     cost = cost + (cost * .10);
 
